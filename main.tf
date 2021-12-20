@@ -2,8 +2,8 @@ locals {
   ingress = [
     for ingress in var.ingress :
     {
-      from_port        = try(ingress.from_port, try(ingress.port, var.default_ingress.protocol))
-      to_port          = try(ingress.to_port, try(ingress.port, var.default_ingress.protocol))
+      from_port        = try(ingress.from_port, try(ingress.port, var.default_ingress.from_port))
+      to_port          = try(ingress.to_port, try(ingress.port, var.default_ingress.to_port))
       protocol         = try(ingress.protocol, var.default_ingress.protocol)
       cidr_blocks      = try(ingress.cidr_blocks, var.default_ingress.cidr_blocks)
       ipv6_cidr_blocks = try(ingress.ipv6_cidr_blocks, var.default_ingress.ipv6_cidr_blocks)
