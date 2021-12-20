@@ -16,7 +16,7 @@ variable "vpc_id" {
 
 variable "ingress" {
   description = <<EOF
-(Optional) Ingress rules of the security group. Default ingress is described on default_ingress variable
+(Optional) Ingress rules of the security group. Default ingress is described on ingress_default variable
 
 (Optional) description - description of the rule - string
 (Optional) protocol - protocol to use ("tcp", "udp", "icmp", "-1" for all). If "-1", you need to use "port = 0" - string
@@ -33,7 +33,7 @@ EOF
   default     = []
 }
 
-variable "default_ingress" {
+variable "ingress_default" {
   description = "(Optional) Default values of ingress if not set, port value override from_port and to_port"
   type = object(
     {
