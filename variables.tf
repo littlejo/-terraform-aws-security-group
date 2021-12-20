@@ -6,6 +6,7 @@ variable "name" {
 variable "description" {
   description = "Description of the security group"
   type        = string
+  default     = ""
 }
 
 
