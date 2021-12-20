@@ -1,22 +1,22 @@
 variable "name" {
-  description = "Name of the security group"
+  description = "(Required) Name of the security group"
   type        = string
 }
 
 variable "description" {
-  description = "Description of the security group"
+  description = "(Required) Description of the security group"
   type        = string
 }
 
 variable "vpc_id" {
-  description = "VPC id of the security group"
+  description = "(Optional) VPC id of the security group (by default, default vpc id)"
   type        = string
   default     = null
 }
 
 variable "ingress" {
   description = <<EOF
-Ingress rules of the security group. Default ingress is described on default_ingress variable
+(Optional) Ingress rules of the security group. Default ingress is described on default_ingress variable
 
 (Optional) description - description of the rule - string
 (Optional) protocol - protocol to use ("tcp", "udp", "icmp", "-1" for all). If "-1", you need to use "port = 0" - string
@@ -34,7 +34,7 @@ EOF
 }
 
 variable "default_ingress" {
-  description = "Default values of ingress if not set, port value override from_port and to_port"
+  description = "(Optional) Default values of ingress if not set, port value override from_port and to_port"
   type = object(
     {
       from_port        = number
@@ -63,7 +63,7 @@ variable "default_ingress" {
 
 
 variable "egress" {
-  description = "Egress rules of the security group"
+  description = "(Optional) Egress rules of the security group"
   type = list(
     object({
       from_port        = number
