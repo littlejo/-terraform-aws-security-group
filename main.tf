@@ -1,6 +1,6 @@
 locals {
   ingress = [
-    for ingress in var.simple_ingress :
+    for ingress in var.ingress :
     {
       from_port        = try(ingress.from_port, try(ingress.port, var.default_ingress.protocol))
       to_port          = try(ingress.to_port, try(ingress.port, var.default_ingress.protocol))
