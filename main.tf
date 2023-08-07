@@ -2,15 +2,15 @@ locals {
   ingress = [
     for ingress in var.ingress :
     {
-      from_port        = try(ingress.from_port, try(ingress.port, var.ingress_default.from_port))
-      to_port          = try(ingress.to_port, try(ingress.port, var.ingress_default.to_port))
-      protocol         = try(ingress.protocol, var.ingress_default.protocol)
-      cidr_blocks      = try(ingress.cidr_blocks, var.ingress_default.cidr_blocks)
-      ipv6_cidr_blocks = try(ingress.ipv6_cidr_blocks, var.ingress_default.ipv6_cidr_blocks)
-      description      = try(ingress.description, var.ingress_default.description)
-      prefix_list_ids  = try(ingress.prefix_list_ids, var.ingress_default.prefix_list_ids)
-      self             = try(ingress.self, var.ingress_default.self)
-      security_groups  = try(ingress.security_groups, var.ingress_default.security_groups)
+      from_port        = ingress.from_port == null ? ingress.port : ingress.from_port
+      to_port          = ingress.to_port == null ? ingress.port : ingress.to_port
+      protocol         = ingress.protocol
+      cidr_blocks      = ingress.cidr_blocks
+      ipv6_cidr_blocks = ingress.ipv6_cidr_blocks
+      description      = ingress.description
+      prefix_list_ids  = ingress.prefix_list_ids
+      self             = ingress.self
+      security_groups  = ingress.security_groups
     }
   ]
 }

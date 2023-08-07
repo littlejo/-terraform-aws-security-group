@@ -29,49 +29,32 @@ variable "ingress" {
 (Optional) security_groups - list(string)
 (Optional) self - if this security group is include in this rule - bool
 EOF
-  type        = list(any)
-  default     = []
-}
-
-variable "ingress_default" {
-  description = "(Optional) Default values of ingress if not set, port value override from_port and to_port"
-  type = object(
+  type = list(object(
     {
-      from_port        = number
-      to_port          = number
-      protocol         = string
-      cidr_blocks      = list(string)
-      ipv6_cidr_blocks = list(string)
-      description      = string
-      prefix_list_ids  = list(string)
-      self             = bool
-      security_groups  = list(string)
+      description      = optional(string, "")
+      port             = optional(number)
+      from_port        = optional(number)
+      to_port          = optional(number)
+      protocol         = optional(string, "tcp")
+      cidr_blocks      = optional(list(string), [])
+      ipv6_cidr_blocks = optional(list(string), [])
+      prefix_list_ids  = optional(list(string), [])
+      self             = optional(bool, false)
+      security_groups  = optional(list(string), [])
     }
-  )
-  default = {
-    from_port        = 0
-    to_port          = 65535
-    protocol         = "tcp"
-    description      = ""
-    self             = false
-    prefix_list_ids  = []
-    cidr_blocks      = []
-    ipv6_cidr_blocks = []
-    security_groups  = []
-  }
+  ))
 }
-
 
 variable "egress" {
   description = "(Optional) Egress rules of the security group"
   type = list(
     object({
+      description      = string
       from_port        = number
       to_port          = number
       protocol         = string
       cidr_blocks      = list(string)
       ipv6_cidr_blocks = list(string)
-      description      = string
       prefix_list_ids  = list(string)
       self             = bool
       security_groups  = list(string)
