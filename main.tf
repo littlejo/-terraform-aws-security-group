@@ -53,5 +53,5 @@ resource "aws_security_group" "this" {
   ingress = local.ingress
   egress  = var.egress
 
-  tags = var.tags
+  tags = merge({ Name = var.name }, var.tags)
 }
