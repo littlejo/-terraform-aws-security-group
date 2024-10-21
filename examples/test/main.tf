@@ -1,6 +1,19 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+variable "name" {
+  default = "test"
+}
+
 module "test" {
   source      = "../.."
-  name        = "test"
+  name        = var.name
   description = "test"
   ingress = [
     {
@@ -16,4 +29,8 @@ module "test" {
       protocol    = "tcp,udp"
     },
   ]
+}
+
+output "test" {
+  value = module.test.security_group_id
 }
